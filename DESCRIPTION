@@ -15,3 +15,5 @@ Imports:
     readr,
     readxl,
     rvest
+URL: https://github.com/gdrod12/MLBEconomics
+BugReports: https://github.com/gdrod12/MLBEconomics/issues
