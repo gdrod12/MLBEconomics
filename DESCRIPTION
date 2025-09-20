@@ -1,0 +1,17 @@
+Package: MLBEconomics
+Type: Package
+Title: Tools for MLB Economic Analysis
+Version: 0.1.0
+Authors@R: 
+    person("Gavin", "Rodriguez", email = "gadarod12@gmail.com", role = c("aut", "cre"))
+Description: Functions for analyzing the economics of Major League Baseball,
+    including salary data, revenue trends, and related statistics.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3
+Imports: 
+    dplyr,
+    readr,
+    readxl,
+    rvest
