@@ -19,3 +19,4 @@ get_team_labels <- function(data) {
   })
   return(team_labels)
 }
+
