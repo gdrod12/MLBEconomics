@@ -1,5 +1,45 @@
+#' Scrape historical and contemporary ballpark data
+#'
+#' This function scrapes ballpark information from
+#' \url{https://www.seamheads.com/ballparks/}. It retrieves inactive
+#' ballpark capacity data across teams as well as contemporary
+#' (active) ballpark data for a given year, and merges them into a single
+#' dataset.
+#'
+#' @param year Integer. The season year for which to scrape contemporary
+#'   ballpark data (e.g., `2024`).
+#'
+#' @return A data frame with columns:
+#' \describe{
+#'   \item{Ballpark Name}{Character. Name of the ballpark.}
+#'   \item{Capacity}{Character/numeric. Reported seating capacity.}
+#'   \item{team_id}{Character. Team identifier extracted from the seamheads URL.}
+#'   \item{Year}{Integer. Year associated with the ballpark entry.}
+#' }
+#'
+#' @details
+#' The function performs two scrapes:
+#' \itemize{
+#'   \item Inactive ballparks: visits each historical team link from the
+#'   seamheads ballparks index and extracts ballpark capacity data.
+#'   \item Active ballparks: retrieves the main ballpark table for the
+#'   specified year.
+#' }
+#' The two datasets are then combined and returned.
+#'
 #' @importFrom magrittr %>%
-NULL
+#' @importFrom rvest read_html html_node html_nodes html_table html_attr
+#' @importFrom dplyr reframe
+#'
+#' @examples
+#' \dontrun{
+#' # Scrape ballpark data for 2024
+#' bp_data <- scrape_old_ballparks(2024)
+#' head(bp_data)
+#' }
+#'
+#' @export
+
 
 scrape_old_ballparks <- function(year){
   #get URL for old ballparks
