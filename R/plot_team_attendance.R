@@ -24,10 +24,10 @@
 
 plot_team_attendance <- function(start_year, end_year) {
   # pick team interactively from your dataset
-  team <- choose_team(attendance_data)
+  team <- choose_team(MLBEconomics::attendance_data)
 
-  # --- build primary site per season (for THIS team) ---
-  primary_sites <- attendance_data %>%
+  #get primary sites for the team in question
+  primary_sites <-MLBEconomics:: attendance_data %>%
     dplyr::mutate(season = lubridate::year(date)) %>%
     dplyr::filter(hometeam == team,
                   season >= start_year,
@@ -46,7 +46,7 @@ plot_team_attendance <- function(start_year, end_year) {
     dplyr::filter(stadium_changed)
 
   # --- season attendance series (avg per season, colored by site) ---
-  team_data <- attendance_data %>%
+  team_data <- MLBEconomics::attendance_data %>%
     dplyr::mutate(season = lubridate::year(date)) %>%
     dplyr::filter(hometeam == team,
                   season >= start_year,
