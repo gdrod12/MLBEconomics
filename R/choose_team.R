@@ -20,7 +20,7 @@ choose_team <- function(data) {
   team_ids <- (unique(c(data$hometeam)))
 
   # menu for selection
-  choice <- menu(team_labels, title = "Select a team:")
+  choice <- menu(MLBEconomics::team_labels, title = "Select a team:")
 
   # return just the team ID
   return(team_ids[choice])
