@@ -10,7 +10,7 @@
 #' Returns the team ID associated with the chosen label.
 #'
 #' Requires the object \code{team_labels} to exist in the package environment.
-#'
+#' @importFrom magrittr %>%
 #' @return A character string: the team ID selected by the user.
 #'
 #' @keywords internal

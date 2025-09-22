@@ -18,7 +18,7 @@
 #' # Example: Plot Yankees attendance from 2000 to 2020
 #' plot_team_attendance("NYY", 2000, 2020)
 #' }
-#'
+#' @importFrom magrittr %>%
 #' @export
 
 
