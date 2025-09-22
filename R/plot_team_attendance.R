@@ -18,7 +18,6 @@
 #' # Example: Plot Yankees attendance from 2000 to 2020
 #' plot_team_attendance("NYY", 2000, 2020)
 #' }
-#' @importFrom magrittr %>%
 #' @export
 
 
@@ -34,7 +33,7 @@ plot_team_attendance <- function(start_year, end_year) {
                   season <= end_year) |>
     dplyr::group_by(hometeam, season, site) |>
     dplyr::summarise(home_games = dplyr::n(), .groups = "drop") |>
-    dplyr::group_by(hometeam, season) %>%
+    dplyr::group_by(hometeam, season) |>
     dplyr::slice_max(order_by = home_games, n = 1, with_ties = FALSE) |>
     dplyr::ungroup()
 
