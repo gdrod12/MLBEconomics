@@ -27,9 +27,6 @@
 #' }
 #' The two datasets are then combined and returned.
 #'
-#' @importFrom magrittr %>%
-#' @importFrom rvest read_html html_node html_nodes html_table html_attr
-#' @importFrom dplyr reframe
 #'
 #' @examples
 #' \dontrun{
@@ -49,13 +46,13 @@ scrape_old_ballparks <- function(year){
 
     #xxtract the table text (for ballpark names etc.)
     tbl <- page %>%
-      rvest::html_node("table") %>%
+      rvest::html_node("table") |>
       rvest::html_table(fill = TRUE)
 
     #xxtract only the hrefs from the FIRST column
     hrefs <- page %>%
-      rvest::html_node("table") %>%
-      rvest::html_nodes("tr td:first-child a") %>%  # only <a> tags in first column
+      rvest::html_node("table") |>
+      rvest::html_nodes("tr td:first-child a") |>  # only <a> tags in first column
       rvest::html_attr("href")
 
     #add them to the table
@@ -101,8 +98,8 @@ scrape_old_ballparks <- function(year){
       #change table
       tbl <- tbl[-1, ]
       #extract the hrefs from the first column, scoped to the same table
-      hrefs <- tables[[2]] %>%
-        rvest::html_nodes("tr td:first-child a") %>%
+      hrefs <- tables[[2]] |>
+        rvest::html_nodes("tr td:first-child a") |>
         rvest::html_attr("href")
 
       #add them to the data frame
@@ -113,8 +110,8 @@ scrape_old_ballparks <- function(year){
     tbl$team_id <- substr(tbl$Link, nchar(tbl$Link)-4, nchar(tbl$Link))
     tbl$Link <- NULL
     #bind inactive and active ballparks together
-    final_data <- rbind(inactive_capacity_data%>%
-                dplyr::reframe(`Ballpark Name`, Capacity, team_id, Year), tbl%>%
+    final_data <- rbind(inactive_capacity_data |>
+                dplyr::reframe(`Ballpark Name`, Capacity, team_id, Year), tbl |>
                 dplyr::reframe(`Ballpark Name`, Capacity, team_id, Year=year))
   return(final_data)
 }

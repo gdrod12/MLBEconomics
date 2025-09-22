@@ -29,5 +29,4 @@ from the \code{primary_sites} dataset, and change years are shown with vertical 
 # Example: Plot Yankees attendance from 2000 to 2020
 plot_team_attendance("NYY", 2000, 2020)
 }
-
 }

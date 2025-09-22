@@ -27,32 +27,32 @@ plot_team_attendance <- function(start_year, end_year) {
   team <- choose_team(MLBEconomics::attendance_data)
 
   #get primary sites for the team in question
-  primary_sites <-MLBEconomics:: attendance_data %>%
-    dplyr::mutate(season = lubridate::year(date)) %>%
+  primary_sites <-MLBEconomics:: attendance_data |>
+    dplyr::mutate(season = lubridate::year(date)) |>
     dplyr::filter(hometeam == team,
                   season >= start_year,
-                  season <= end_year) %>%
-    dplyr::group_by(hometeam, season, site) %>%
-    dplyr::summarise(home_games = dplyr::n(), .groups = "drop") %>%
+                  season <= end_year) |>
+    dplyr::group_by(hometeam, season, site) |>
+    dplyr::summarise(home_games = dplyr::n(), .groups = "drop") |>
     dplyr::group_by(hometeam, season) %>%
-    dplyr::slice_max(order_by = home_games, n = 1, with_ties = FALSE) %>%
+    dplyr::slice_max(order_by = home_games, n = 1, with_ties = FALSE) |>
     dplyr::ungroup()
 
   # stadium-change years
-  changes <- primary_sites %>%
-    dplyr::arrange(season) %>%
+  changes <- primary_sites |>
+    dplyr::arrange(season) |>
     dplyr::mutate(prev_site = dplyr::lag(site),
-                  stadium_changed = site != prev_site & !is.na(prev_site)) %>%
+                  stadium_changed = site != prev_site & !is.na(prev_site)) |>
     dplyr::filter(stadium_changed)
 
   # --- season attendance series (avg per season, colored by site) ---
-  team_data <- MLBEconomics::attendance_data %>%
-    dplyr::mutate(season = lubridate::year(date)) %>%
+  team_data <- MLBEconomics::attendance_data |>
+    dplyr::mutate(season = lubridate::year(date)) |>
     dplyr::filter(hometeam == team,
                   season >= start_year,
                   season <= end_year,
-                  !is.na(attendance)) %>%
-    dplyr::group_by(season, site) %>%
+                  !is.na(attendance)) |>
+    dplyr::group_by(season, site) |>
     dplyr::summarise(avg_attendance = mean(attendance, na.rm = TRUE),
                      .groups = "drop")
 

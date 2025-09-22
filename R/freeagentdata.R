@@ -1,5 +1,3 @@
-#' @importFrom magrittr %>%
-NULL
 
 
 clean_fa_data <- function(file_path)
