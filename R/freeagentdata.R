@@ -1,7 +1,9 @@
 
 
-clean_fa_data <- function(file_path)
+clean_fa_data <- function()
 {
+  #
+  file_path <- system.file("extdata", "free_agency_data.xlsx", package = "MLBEconomics")
   # List sheet names (each year is a tab)
   sheets <- readxl::excel_sheets(file_path)
   sheets <- sheets[!sheets %in% c("FA Spending", "FA Trends")]
@@ -19,7 +21,7 @@ clean_fa_data <- function(file_path)
     df <- df[-c(1:header_row), ]
 
     # optional: convert types automatically
-    df <- type_convert(df, na = c("", "NA"))
+    df <- readr::type_convert(df, na = c("", "NA"))
     if ("Opt Out" %in% names(df)) {
       df$`Opt Out` <- as.character(df$`Opt Out`)
     }
@@ -27,5 +29,17 @@ clean_fa_data <- function(file_path)
     df
   })
 
-  data<-reduce(all_years, bind_rows)
+  data<-purrr::reduce(all_years, dplyr::bind_rows)
+  data <- data |>
+    dplyr::reframe(Player, position=`Pos'n`,
+                   age = sum(`Age 7/1/25`, `Age 7/1/24`, `Age 7/1/23`,
+                             `Age 7/1/22`, `Age 7/1/21`, Age, na.rm=T),
+                   qualifying_offer = `Qual    Offer`,
+                   old_team = `Old    Club`, new_team = `New Club`,
+                   years=Years, guarantee=Guarantee, option=Option,
+                   opt_out = `Opt Out`, player_agent=`Player Agent`,
+                   club_owner = `Club Owner`, general_manager = `Baseball Ops      head / club GM`,
+                   year)
+
 }
+
