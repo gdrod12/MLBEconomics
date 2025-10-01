@@ -34,3 +34,19 @@
 #' head(team_labels)
 "team_labels"
 
+
+#' Vegas Preseason Win Totals
+#'
+#' A dataset of MLB preseason Vegas win totals scraped from SportsOddsHistory,
+#' spanning 1990–2020s.
+#'
+#' @format A tibble with columns:
+#' \describe{
+#'   \item{team}{Team name (character).}
+#'   \item{year}{Season year (numeric).}
+#'   \item{preseason}{Preseason Vegas win total (numeric).}
+#' }
+#'
+#' @source \url{https://www.sportsoddshistory.com/mlb-regular-season-win-total-results-by-team/}
+"vegas_data"
+
