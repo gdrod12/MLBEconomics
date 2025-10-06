@@ -55,7 +55,7 @@ combine_ballpark_data <- function(year)
   combined_data <- merge(gameinfo, capacity_data,
                 by.x=c("site"), by.y=c("team_id"), all.x=T) |>
     dplyr::reframe(site, gid, date=as.Date(substr(gid, 4, 12), format = "%Y%m%d"),
-            visteam, hometeam, starttime, attendance, Capacity,
+            visteam, hometeam, starttime, attendance, capacity = as.numeric(gsub(",", "", Capacity)),
             vruns, hruns, temp, fieldcond, precip, sky, winddir,
             gametype)
 }
