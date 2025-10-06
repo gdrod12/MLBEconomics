@@ -114,6 +114,17 @@ get_vegas_wins <- function(){
     #get rid of non preseason values
     dplyr::filter(preseason>10, year>=2020,
                 team!="Team")
-  #return output
-  return(rbind(x19902019, x2020s))
+  #create output data
+  output_data <- rbind(x19902019, x2020s)
+  vegas_translations <- read_csv("inst/extdata/vegas_translations.csv")
+  #add in proper team labeling
+  output_data <- output_data |>
+    dplyr::left_join(vegas_translations, by=c("team" = "vegas_name",
+                                              "year" = "season"))
+  #remove erroneous column
+  output_data$team <- NULL
+
+  #return output data
+  return(output_data)
 }
+

@@ -9,10 +9,27 @@ colnames(teamids) <- c(
   "retro_id", "city", "nickname",
   "first_year"
 )
-
-chadwick <- baseballr::get_chadwick_lu()
+teamids
 vegas_data<-MLBEconomics::vegas_data
+team_names_vegas <- vegas_data |>
+  reframe(team, year)
+write_csv(team_names_vegas, "vegas_namehelper.csv")
+
+
+
+
+file_path <- "inst/extdata/vegas_translations.csv"
+
+vegas_translations <- read_csv("inst/extdata/vegas_translations.csv")
+
 attendance_data <- attendance_data
+retrosheet_names <- attendance_data |>
+  left_join(teamids, by = c("hometeam" = "retro_id")) |>
+  reframe(retro_id=hometeam, city, nickname, season) |>
+  group_by(retro_id, city, nickname, season) |>
+  reframe(games=n()) |>
+  filter(season>=1990, !is.na(city))
+write_csv(retrosheet_names, "retrosheet_seasonnames.csv")
 #get season record data
 season_records <- attendance_data |>
   mutate(season = year(date)) |>
