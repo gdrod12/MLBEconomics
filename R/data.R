@@ -1,26 +1,41 @@
-#' Historical Baseball Game Data
+#' Historical MLB Attendance Data
 #'
-#'A dataset containing game by game MLB attendance data alongside other variables from 1899 to 2024
+#' A dataset containing game-level attendance and game information for Major League Baseball
+#' (and predecessor leagues) from 1926 onward, including team identifiers, scores, and basic
+#' environmental conditions.
 #'
-#' @format A data frame with 221,176 rows and 15 variables:
+#' @format A data frame with 221,173 observations and 17 variables:
 #' \describe{
-#'   \item{site}{Stadium code (character)}
-#'   \item{gid}{Game ID (character)}
-#'   \item{date}{Date of game (Date)}
-#'   \item{visteam}{Visiting team code (character)}
-#'   \item{hometeam}{Home team code (character)}
-#'   \item{starttime}{Start time of game (hms object)}
-#'   \item{attendance}{Reported attendance (numeric)}
-#'   \item{Capacity}{Stadium capacity, if known (character)}
-#'   \item{vruns}{Runs scored by visiting team (numeric)}
-#'   \item{hruns}{Runs scored by home team (numeric)}
-#'   \item{temp}{Reported temperature (numeric)}
-#'   \item{fieldcond}{Field condition (character)}
-#'   \item{precip}{Precipitation conditions (character)}
-#'   \item{sky}{Sky condition (character)}
-#'   \item{winddir}{Wind direction (character)}
+#'   \item{site}{Character. Retrosheet park or site identifier.}
+#'   \item{gid}{Character. Unique game identifier (e.g., "ACY192610060").}
+#'   \item{date}{Date. Date on which the game was played.}
+#'   \item{season}{Numeric. Season year (e.g., 1926, 1927, ...).}
+#'   \item{visteam}{Character. Visiting team 3-letter Retrosheet code.}
+#'   \item{hometeam}{Character. Home team 3-letter Retrosheet code.}
+#'   \item{starttime}{hms. Game start time, when available.}
+#'   \item{attendance}{Numeric. Reported paid attendance. May be 0 or NA for missing data.}
+#'   \item{capacity}{Numeric. Ballpark seating capacity for the given game, when available.}
+#'   \item{vruns}{Numeric. Runs scored by the visiting team.}
+#'   \item{hruns}{Numeric. Runs scored by the home team.}
+#'   \item{temp}{Numeric. Reported game-time temperature in °F, if available (0 indicates missing).}
+#'   \item{fieldcond}{Character. Field condition (e.g., "dry", "damp", "unknown").}
+#'   \item{precip}{Character. Precipitation conditions (e.g., "none", "drizzle", "unknown").}
+#'   \item{sky}{Character. Sky condition (e.g., "sunny", "cloudy", "unknown").}
+#'   \item{winddir}{Character. Wind direction descriptor (e.g., "in from LF", "unknown").}
+#'   \item{gametype}{Character. Type of game ("championship", "exhibition", "postseason", etc.).}
 #' }
-#' @source Seamheads.com, retrosheet.org
+#'
+#' @source Data compiled from \href{https://www.retrosheet.org/}{Retrosheet Game Logs},
+#' merged with supplemental capacity and environmental data from Seamheads Ballparks and MLB sources.
+#'
+#' @details
+#' This dataset serves as a core input for MLB attendance and capacity analysis in the
+#' \pkg{MLBEconomics} package. Missing attendance or capacity values reflect historical
+#' record limitations. Weather-related fields are largely unavailable for pre-1970 games.
+#'
+#' @examples
+#' data(attendance_data)
+#' dplyr::glimpse(attendance_data)
 "attendance_data"
 
 #' Team labels dataset
