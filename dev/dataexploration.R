@@ -1,4 +1,5 @@
 library(tidyverse)
+library(MLBEconomics)
 teamids <- read_csv(
   "https://www.retrosheet.org/TEAMABR.TXT",
   col_names = FALSE
@@ -9,7 +10,7 @@ colnames(teamids) <- c(
   "retro_id", "city", "nickname",
   "first_year"
 )
-teamids
+
 vegas_data<-MLBEconomics::vegas_data
 team_names_vegas <- vegas_data |>
   reframe(team, year)
