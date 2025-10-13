@@ -193,3 +193,51 @@
 #' dplyr::filter(free_agent_data, year == "2025", new_team == "NYN") |> head()
 "free_agent_data"
 
+#' ZiPS Batter Projection Data (2010–Present)
+#'
+#' @description
+#' A dataset containing combined ZiPS batter projections from 2010 through
+#' the most recent available season. Each row represents a single player-season,
+#' including offensive, baserunning, and defensive metrics, as well as player
+#' identifiers.
+#'
+#' @format
+#' A tibble with 20,639 rows and 14 variables:
+#' \describe{
+#'   \item{Name}{Player's full name}
+#'   \item{PA}{Projected plate appearances}
+#'   \item{UBR}{Ultimate Base Running component (may be missing for older seasons)}
+#'   \item{wSB}{Weighted stolen base runs}
+#'   \item{BsR}{Total baserunning runs (UBR + wSB)}
+#'   \item{wRC+}{Weighted runs created plus — league- and park-adjusted offensive metric (100 = league average)}
+#'   \item{Fld}{Fielding runs above average (may contain missing values)}
+#'   \item{Off}{Offensive runs above average}
+#'   \item{Def}{Total defensive value (fielding + positional adjustment)}
+#'   \item{WAR}{Wins Above Replacement}
+#'   \item{NameASCII}{ASCII-safe version of player name}
+#'   \item{PlayerId}{ZiPS-internal player identifier}
+#'   \item{MLBAMID}{Major League Baseball Advanced Media (MLBAM) player ID}
+#'   \item{season}{Season year of the projection}
+#' }
+#'
+#' @details
+#' The ZiPS (Szymborski Projection System) dataset is a widely used projection
+#' system for Major League Baseball players, originally developed by Dan Szymborski.
+#' This table combines annual batter projection files (`zipsbatters{year}.csv`)
+#' included under the package's `inst/extdata/` directory.
+#'
+#' Data are loaded and combined programmatically via
+#' [get_zips_batters()], which reads yearly CSVs, appends season identifiers,
+#' and selects key statistical columns for analysis.
+#'
+#' @source
+#' Data compiled from \url{https://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=zips}.
+#'
+#' @examples
+#' \dontrun{
+#' data(zips_batters)
+#' dplyr::glimpse(zips_batters)
+#' }
+"zips_batter_data"
+
+

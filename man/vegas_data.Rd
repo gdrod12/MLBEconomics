@@ -3,23 +3,44 @@
 \docType{data}
 \name{vegas_data}
 \alias{vegas_data}
-\title{Vegas Preseason Win Totals}
+\title{MLB Vegas Preseason Win Projections with Team Metadata}
 \format{
-A tibble with columns:
+A tibble with 1,028 rows and 5 variables:
 \describe{
-  \item{team}{Team name (character).}
-  \item{year}{Season year (numeric).}
-  \item{preseason}{Preseason Vegas win total (numeric).}
+  \item{year}{Numeric. MLB season year (e.g., 1998, 1999, ...).}
+  \item{preseason}{Numeric. Vegas preseason projected win total for that team-year.}
+  \item{retro_id}{Character. Retrosheet team identifier (e.g., "ARI" for Arizona Diamondbacks).}
+  \item{city}{Character. The team's city or geographic designation.}
+  \item{nickname}{Character. The team's nickname or franchise name.}
 }
 }
 \source{
-\url{https://www.sportsoddshistory.com/mlb-regular-season-win-total-results-by-team/}
+Vegas win total data compiled from public sportsbook archives and
+baseball analytics sources (e.g. Fangraphs, Baseball Prospectus).
 }
 \usage{
 vegas_data
 }
 \description{
-A dataset of MLB preseason Vegas win totals scraped from SportsOddsHistory,
-spanning 1990–2020s.
+A dataset combining historical Vegas preseason win totals with team
+identity information (city, nickname, and Retrosheet ID) for each
+Major League Baseball team-season.
+}
+\details{
+Each row represents a single team-season combination for which
+preseason Vegas win projections are available. Team metadata were joined
+from the `vegas_translations` reference table, aligning Retrosheet IDs and
+naming conventions across eras.
+}
+\examples{
+# View structure
+str(vegas_data)
+
+# Average projected wins by team nickname
+dplyr::group_by(vegas_data, nickname) |>
+  dplyr::summarise(mean_proj = mean(preseason, na.rm = TRUE))
+
+# Filter for Yankees projections since 2000
+dplyr::filter(vegas_data, retro_id == "NYY", year >= 2000)
 }
 \keyword{datasets}
