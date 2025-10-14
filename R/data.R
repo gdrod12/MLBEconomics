@@ -240,4 +240,39 @@
 #' }
 "zips_batter_data"
 
+#' ZiPS Pitcher Projections (2010–Present)
+#'
+#' A dataset containing combined ZiPS pitcher projection data from 2010 through
+#' the latest available season. Each row corresponds to a single pitcher-season,
+#' including core performance projections and identifiers.
+#'
+#' @format A tibble with 22,130 rows and 12 variables:
+#' \describe{
+#'   \item{Name}{Pitcher's name.}
+#'   \item{Team}{Team abbreviation (may be \code{NA} for unsigned players).}
+#'   \item{IP}{Projected innings pitched.}
+#'   \item{G}{Projected games pitched.}
+#'   \item{GS}{Projected games started.}
+#'   \item{ERA}{Projected earned run average.}
+#'   \item{FIP}{Projected fielding independent pitching.}
+#'   \item{WAR}{Projected wins above replacement.}
+#'   \item{NameASCII}{ASCII-safe version of the pitcher's name.}
+#'   \item{PlayerId}{Internal player ID.}
+#'   \item{MLBAMID}{MLB Advanced Media ID.}
+#'   \item{season}{Season year of the projection.}
+#' }
+#'
+#' @details
+#' These projections originate from FanGraphs' ZiPS system and have been
+#' collated into a unified format for analysis within the `MLBEconomics`
+#' package.
+#'
+#' @source \url{https://www.fangraphs.com/projections.aspx?pos=all&stats=pit&type=zips}
+#'
+#' @examples
+#' data("zips_pitcher_data")
+#' dplyr::glimpse(zips_pitcher_data)
+"zips_pitcher_data"
+
+
 
