@@ -273,6 +273,42 @@
 #' data("zips_pitcher_data")
 #' dplyr::glimpse(zips_pitcher_data)
 "zips_pitcher_data"
+#' MLB Team Attendance and Performance Data
+#'
+#' A comprehensive dataset containing season-level information for all Major League Baseball teams
+#' from 1990 onward, including attendance metrics, preseason win expectations, and win outcomes.
+#' Each observation represents a single team's game-level or aggregated record, typically one entry per
+#' team per game within a given season.
+#'
+#' @format A tibble with 131,904 rows and 12 variables:
+#' \describe{
+#'   \item{team}{Character. The three-letter team abbreviation (e.g., "ANA", "BOS", "CHC").}
+#'   \item{city}{Character. The city in which the team is located.}
+#'   \item{nickname}{Character. The team’s nickname (e.g., "Angels", "Red Sox", "Cubs").}
+#'   \item{season}{Numeric. The MLB season year.}
+#'   \item{remaining_home_games}{Integer. Number of home games remaining at the time of observation.}
+#'   \item{capacity}{Numeric. Seating capacity of the team’s home stadium.}
+#'   \item{total_attendance}{Numeric. Cumulative attendance to date for the season.}
+#'   \item{no_attendance_recorded}{Integer (0/1). Indicator for whether attendance data were missing for that game.}
+#'   \item{mean_attendance}{Numeric. Average home game attendance to date for the team’s season.}
+#'   \item{preseason}{Numeric. Preseason win total expectation or over/under projection for the team.}
+#'   \item{win_percentage}{Numeric. Team win percentage at the time of observation (0–1 scale).}
+#'   \item{games_played}{Numeric. Total number of games played by the team to date in the season.}
+#' }
+#'
+#' @details
+#' This dataset is designed to support MLB economic and strategic analysis, including attendance modeling,
+#' preseason expectations, and performance-based metrics. It can be used for visualization, time-series
+#' trend analysis, or regression-based studies of fan engagement and team success.
+#'
+#' @source Compiled by \code{MLBEconomics}, integrating data from Retrosheet, Baseball Reference,
+#' and FanGraphs projections.
+#'
+#' @examples
+#' data(attendance_data)
+#' dplyr::glimpse(attendance_data)
+#' dplyr::filter(attendance_data, team == "BOS", season >= 2000)
+"attendance_data"
 
 
 
