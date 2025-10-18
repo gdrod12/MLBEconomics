@@ -74,7 +74,6 @@ create_beta_data <- function(){
       dplyr::left_join(record_before, by=c("team",
                                   "season")) |>
       dplyr::mutate(predicted_win_rate = preseason/162) |>
-      dplyr::filter(games>10) |>
       dplyr::mutate(games_played = rowSums(dplyr::across(c(home_wins, home_losses,
                                                   away_wins, away_losses)),
                                          na.rm = TRUE)) |>
